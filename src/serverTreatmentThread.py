@@ -1,13 +1,15 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+import main
+from math import *
 from random import *
 import sys
+from threading import RLock
 from threading import Thread
 import time
-from math import *
 
-import main
+verrou = RLock()
 
 class ServerTreatmentThread(Thread):
     
@@ -23,7 +25,7 @@ class ServerTreatmentThread(Thread):
     def run(self):
         """Code à exécuter pendant l'exécution du thread."""
         i = 0
-        while 1 :
+        while 1:
             if len(main.requetes) != 0:
                 requete = main.requetes.pop(0)
                 if requete.type == 1:
@@ -34,18 +36,19 @@ class ServerTreatmentThread(Thread):
                     sys.stdout.write("Problème de type")
                     sys.stdout.flush()
                     continue
-#                sys.stdout.write("On attend ... " + str(attente) + "ms pour la requête de type " + str(requete.type) + " du client " + str(requete.id_client) + "...\n")
-#                sys.stdout.flush()
-                attente = (attente + 6)/1000 # +6 pour le RTT/2
+                    
+                with verrou:
+                    sys.stdout.write("\tSTART (type." + str(requete.type) + ", id." + str(requete.id_client) + ", " + str(attente) + "ms)...\n")
+                    sys.stdout.flush()
+                    
+                attente = ((attente + 6) / 1000) * main.fact_time_treat # +6 pour le RTT/2
                 time.sleep(attente)
                 
-                main.clients[requete.id_client].request_type = requete.type 
-#                sys.stdout.write("Ça y est ("+ str(main.clients[requete.id_client].request_type) +")!\n")
-#                sys.stdout.flush()
-            else:
-#                sys.stdout.write("[Vide]\n")
-#                sys.stdout.flush()
-                i += 1
+                with verrou:
+                    main.clients[requete.id_client].request_type = requete.type 
+                    sys.stdout.write("\tEND (type." + str(requete.type) + ", id." + str(requete.id_client) + ")...\n")
+                    sys.stdout.flush()
+
             
     def treatment1(self): # Loi uniforme
         return randint(self.uMin, self.uMax)
