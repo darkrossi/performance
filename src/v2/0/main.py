@@ -19,6 +19,10 @@ def poisson(l):
 def pareto(a, m):
     return (np.random.pareto(a) + 1) * m
 
+def mediane(list):
+    new_list = sorted(list)
+    return new_list[int(len(new_list)/2)]
+
 if __name__ == "__main__":
     
     import simul_exercice1 as s1
@@ -26,4 +30,4 @@ if __name__ == "__main__":
     import simul_exercice2 as s2
     
     
-    s2.do(20, 30, 40, 20000, 1.25, 2)
+    s1.do(50, 60, 70, 40000, 0.1)

@@ -46,25 +46,16 @@ def simul_server(param_lambda, time_out, param_expon):
                 q.put ((current_time + 1, 'type1_sent', id)) # On envoie une requête de type 1 au serveur
             else:
                 t = current_time + uniforme(0, 30)
-                q.put ((t, 'type1_treatment', id)) # On traite la requête de type 1
+                q.put ((t + 2*rtt_2, 'type2_sent', id)) # On traite la requête de type 1
                 block_time = t
-
-        elif(event[1] == 'type1_treatment'): # Si une requête de type 1 a été traitée par le serveur
-            q.put ((current_time + rtt_2, 'type1_answer', id)) # On envoie la réponse au client
-
-        elif(event[1] == 'type1_answer'): # Si la réponse d'une requête de type 1 a été reçueée par le client
-            q.put ((current_time + rtt_2, 'type2_sent', id)) # On envoie une requête de type 2 au serveur
 
         elif(event[1] == 'type2_sent'): # Si la réponse d'une requête de type 1 a été reçueée par le client
             if(block_time > current_time):
                 q.put ((current_time + 1, 'type2_sent', id)) # On envoie une requête de type 1 au serveur
             else:
                 t = current_time + exponentiel(param_expon)
-                q.put ((t, 'type2_treatment', id)) # On traite la requête de type 1
+                q.put ((t + rtt_2, 'departure', id)) # On traite la requête de type 1
                 block_time = t
-
-        elif(event[1] == 'type2_treatment'): # Si la réponse d'une requête de type 1 a été reçueée par le client
-            q.put ((current_time + rtt_2, 'departure', id)) # On envoie une requête de type 2 au serveur
 
         elif(event[1] == 'departure'):
             state -= 1
@@ -85,24 +76,34 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, param_expon):
         # lambda = 23 -> 765ms
         # lambda = 50 -> 51ms
     
+    list_param_lambda = [param_lambda1, param_lambda2, param_lambda3]
+    
     simul = []
     simul.append(simul_server(param_lambda1, time_out, param_expon))
-    simul.append(simul_server(param_lambda2, time_out, param_expon))
-    simul.append(simul_server(param_lambda3, time_out, param_expon))
-    #    simul.append(simul_server(27, time_out))
-    #    simul.append(simul_server(28, time_out))
+    if param_lambda2 != -1:
+        simul.append(simul_server(param_lambda2, time_out, param_expon))
+    else:
+        simul.append([[], [], {}])
+    if param_lambda3 != -1:
+        simul.append(simul_server(param_lambda3, time_out, param_expon))
+    else:
+        simul.append([[], [], {}])
     
     for i in range(0, len(simul)):
         simul_var = simul[i]
-        temp_sum_time = 0
-        j = 0
-        for valeur in simul_var[2].values():
-            if valeur[1] == 1:
-                j += 1
-                temp_sum_time += valeur[0]
-                # print "\t " + str(valeur[0])
-        average_time = temp_sum_time / j
-        print "Le temps moyen pour la simu n°" + str(i) + " est de " + str(average_time) + "ms. (j = " + str(j) + ")"
+        if len(simul_var[0]) != 0:
+            temp_sum_time = 0
+            j = 0
+            liste_temps = []
+            for valeur in simul_var[2].values():
+                if valeur[1] == 1:
+                    j += 1
+                    temp_sum_time += valeur[0]
+                    liste_temps.append(valeur[0])
+                    # print "\t " + str(valeur[0])
+            mediane_var = mediane(liste_temps)
+            average_time = temp_sum_time / j
+            print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var)
     
     plt.plot(simul[0][0], simul[0][1], 'r--', simul[1][0], simul[1][1], 'bs', simul[2][0], simul[2][1], 'g^')
     plt.show() # affiche la figure a l'ecran
