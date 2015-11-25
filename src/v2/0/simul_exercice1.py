@@ -103,7 +103,10 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, param_expon):
                     # print "\t " + str(valeur[0])
             mediane_var = mediane(liste_temps)
             average_time = temp_sum_time / j
-            print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var)
+            ecart_type_var = ecart_type(liste_temps, average_time)
+            intervalle_de_confiance_var = intervalle_de_confiance(ecart_type_var, j)
+            print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var) + "."
+            print("\t L'intervalle de confiance de la moyenne vaut {0:.2f}.".format(intervalle_de_confiance_var))
     
     plt.plot(simul[0][0], simul[0][1], 'r--', simul[1][0], simul[1][1], 'bs', simul[2][0], simul[2][1], 'g^')
     plt.show() # affiche la figure a l'ecran
