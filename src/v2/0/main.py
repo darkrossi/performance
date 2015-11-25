@@ -22,16 +22,16 @@ def pareto(a, m):
 def ecart_type(echantillon, moyenne):
     sum_temp = 0
     for valeur in echantillon:
-        sum_temp += (valeur - moyenne)**2
-    sum_temp = sum_temp/len(echantillon)
+        sum_temp += (valeur - moyenne) ** 2
+    sum_temp = sum_temp / len(echantillon)
     return sqrt(sum_temp)
 
 def mediane(list):
     new_list = sorted(list)
-    return new_list[int(len(new_list)/2)]
+    return new_list[int(len(new_list) / 2)]
 
 def intervalle_de_confiance(ecart_type, taille):
-    return ecart_type/sqrt(taille)
+    return ecart_type / sqrt(taille)
 
 if __name__ == "__main__":
         
@@ -40,4 +40,5 @@ if __name__ == "__main__":
     import simul_exercice2 as s2
     
     
-    s1.do(23, 24, 25, 50000, 0.1)
+#    s1.do(80, -1, -1, 50000, 0.1)
+    s2.do(80, -1, -1, 200000, 1.25, 2)
