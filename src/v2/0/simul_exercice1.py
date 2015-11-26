@@ -82,7 +82,6 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, param_expon):
         simul_var = simul[i]
         if len(simul_var[0]) != 0:
             temp_sum_time = 0
-            j = 0
             for valeur in simul_var[2]:
                 temp_sum_time += valeur
             mediane_var = mediane(simul_var[2])
@@ -92,5 +91,12 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, param_expon):
             print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var) + "."
             print("\t L'intervalle de confiance de la moyenne vaut {0:.2f}.".format(intervalle_de_confiance_var))
     
-    plt.plot(simul[0][0], simul[0][1], 'r--', simul[1][0], simul[1][1], 'bs', simul[2][0], simul[2][1], 'g^')
+    plt.plot(simul[0][0], simul[0][1], 'r--', label="$\lambda = %d$" % param_lambda1)
+    if(len(simul[1][0]) != 0):
+        plt.plot(simul[1][0], simul[1][1], 'bs', label="$\lambda = %d$" % param_lambda2)
+    if(len(simul[2][0]) != 0):
+        plt.plot(simul[2][0], simul[2][1], 'g^', label="$\lambda = %d$" % param_lambda3)
+    plt.xlabel(u"Date (en ms)")
+    plt.ylabel(u"Nombre de clients dans le systeme")
+    plt.legend(shadow=True, fancybox=True)
     plt.show() # affiche la figure a l'ecran
