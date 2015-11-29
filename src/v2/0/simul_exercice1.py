@@ -63,7 +63,7 @@ def simul_server(param_lambda, time_out, param_expon):
 
     return (axe_x, axe_y, liste_temps_execution)
 
-def do(param_lambda1, param_lambda2, param_lambda3, time_out, param_expon):
+def do(param_lambda1, param_lambda2, param_lambda3, time_out, param_expon, nb_sigma_precision):
 
     list_param_lambda = [param_lambda1, param_lambda2, param_lambda3]
 
@@ -87,12 +87,14 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, param_expon):
             mediane_var = mediane(simul_var[2])
             average_time = temp_sum_time / len(simul_var[2])
             ecart_type_var = ecart_type(simul_var[2], average_time)
-            intervalle_de_confiance_var = intervalle_de_confiance(ecart_type_var, len(simul_var[2]))
+
             n = len(simul_var[2])
             j = int((n/2) - sqrt(n)/2)
             k = int((n/2) + sqrt(n)/2)
             xj = simul_var[2][j]
             xk = simul_var[2][k]
+            intervalle_de_confiance_var = intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type_var, len(simul_var[2]))
+
             print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var) + "."
             print("\t L'intervalle de confiance de la moyenne vaut {0:.2f}.".format(intervalle_de_confiance_var))
             print("\t L'intervalle de confiance de la mediane vaut [" + str(xj) + ", " + str(xk) + "].")
