@@ -7,6 +7,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from random import *
 
+dico_sigma = {}
+dico_sigma[1] = (1, 68) # (Nombre de sigma de différence, pourcentage de précision associé)
+dico_sigma[2] = (1.96, 95)
+dico_sigma[3] = (3, 99.7) 
+
 def uniforme(uMin, uMax): # Loi uniforme
     return randint(uMin, uMax)
     
@@ -30,8 +35,11 @@ def mediane(list):
     new_list = sorted(list)
     return new_list[int(len(new_list) / 2)]
 
-def intervalle_de_confiance(ecart_type, taille):
-    return ecart_type / sqrt(taille)
+def intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type, taille):
+    return dico_sigma[nb_sigma_precision][0] * ecart_type / sqrt(taille)
+
+def intervalle_de_confiance_mediane(nb_sigma_precision, taille):
+    return dico_sigma[nb_sigma_precision][0] * sqrt(taille)/2
 
 if __name__ == "__main__":
         
@@ -40,5 +48,5 @@ if __name__ == "__main__":
     import simul_exercice2 as s2
     
     
-#    s1.do(40, 60, -1, 1000000, 0.1)
-    s2.do(20, 30, -1, 40000, 1.25, 2)
+    s1.do(50, 60, -1, 100000, 0.1, 1)
+#    s2.do(60, -1, -1, 40000, 1.25, 2, 1)

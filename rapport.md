@@ -2,7 +2,8 @@
 Fournier Mickaël**  
 ISSC - 3A
 
-** ATTENTION ** : *Faire script pour pouvoir reproduire toutes les figures du rapport*
+** ATTENTION ** : *Faire script pour pouvoir reproduire toutes les figures du rapport*  
+** ATTENTION ** : *Un intervalle de confiance est de niveau quelque chose*
 
 # TP Performance - Rapport
 
