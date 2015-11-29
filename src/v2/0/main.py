@@ -39,7 +39,7 @@ def intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type, taille):
     return dico_sigma[nb_sigma_precision][0] * ecart_type / sqrt(taille)
 
 def intervalle_de_confiance_mediane(nb_sigma_precision, taille):
-    return dico_sigma[nb_sigma_precision][0] * sqrt(taille)/2
+    return dico_sigma[nb_sigma_precision][0] * sqrt(taille) / 2
 
 if __name__ == "__main__":
         

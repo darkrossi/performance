@@ -11,6 +11,8 @@ ISSC - 3A
 
 Nous avons choisi de développeur notre simulateur en Python car cela nous permettait de réaliser un projet dans un langage connu et répandu mais que nous n'avions jamais utilisé.
 
+Afin de reproduire les graphiques du rapport il faut utiliser l'éxécutable script.py avec un argument qui est un nombre entier représentant le graphique voulu (**TO DO**)
+
 ### Comment fonctionne notre générateur ?
 
 Les événements de notre simulateur sont caractérisés par trois éléments :
