@@ -8,7 +8,7 @@ ISSC - 3A
 
 ### Introduction
 
-Nous avons choisi de développeur notre simulateur en Python car cela nous permettait de réaliser un projet dans un langage connu et répandu mais que nous n'avions jamais utilisé.
+Nous avons choisi de développer notre simulateur en Python car cela nous permettait de réaliser un projet dans un langage connu et répandu mais que nous n'avions jamais utilisé.
 
 ### Comment fonctionne notre générateur ?
 
@@ -33,37 +33,42 @@ Nous donnons à notre simulateur un time_out (en ms) qui correspond à la limite
 
 ##### Exercice 1
 
-1. Si on ne considère pas le paramètre &#955; (et donc l'arrivée des clients), il nous faut calculer la moyenne de chaque événement :
+1. Si on ne considère pas le paramètre &#955; (et donc l'arrivée des clients), il nous faut calculer la durée moyenne de chaque événement :
   - Le délai de communication entre le client et le serveur est constant. Le temps moyen est donc égal à ce délai pour chaque aller ou retour. Nous avons deux aller-retours. Ainsi, le temps moyen lors de ces trajets est de 12*2 = 24ms.
   - La moyenne d'une distribution uniforme entre sa borne min "min" et sa borne max "max" est égale à (max+min)/2. Ici nous avons "min" = 0 et "max" = 30. Ainsi, le temps moyen de traitement d'une requête de type 1 est de 15ms.
   - La moyenne d'une distribution exponentielle de paramètre "p" est égale à l'inverse de son paramètre. Ici nous avons "p" = 1/10. Ainsi, le temps moyen de traitement d'une requête de type 2 est de 10ms.
   - **Le temps moyen de réponse est donc égal à la somme de ces trois temps moyens. Soit *49ms* (24 + 15 + 10).**
 2. cf partie précédente
 3. //
-  1. Le système nous semble stable pour un **&#955; strictement supérieur à 24.**  
-  ![Image inconnue](./Graphs/24-25-26_80000.png)
+  1. Le système nous semble stable pour un **&#955; strictement supérieur à 24.** On observe en effet que pour de telles valeurs le système admet un régime stationnaire.   
+  ![Image inconnue](./Graphs/seeded/figure_1Quest3-1Seed1.png)
   2. On choisit &#955;=20 et &#955;=30.  
-    ![Image inconnue](./Graphs/20-30_10000.png)  
-    On voit que pour &#955;=20 le nombre de clients présents à un instant t ne cesse d'augmenter avec le temps alors que celui pour &#955;=30 reste stable. **TO COMPLETE**
+    ![Image inconnue](./Graphs/seeded/figure_2Quest3-2Seed1.png)  
+    On voit que pour &#955;=20 le nombre de clients présents à un instant t ne cesse d'augmenter avec le temps alors que celui pour &#955;=30 reste stable (régime stationnaire).
 4. On sait que pour &#955;=20 le système est instable, il n'y a pas de régime stationnaire. On ne pourra donc pas calculer la moyenne et la médiane du temps que met le serveur à répondre à une requête.  
   Pour &#955;=40 et &#955;=60 cela est possible car le système est stable.  
   L'intervalle de confiance de la moyenne est calculé à l'aide de la formule suivant : *erreur = &#963;/sqrt(n)* avec n le nombre d'échantillons de la simulation.  
-  L'intervalle de confiance pour la médiane ... **TO DO**  
+  L'intervalle de confiance pour la médiane est donné par [Xj, Xk]  avec k>j qui vérifient *j = n/2 - sqrt(n)/2* et *k = n/2 + sqrt(n)/2* pour n suffisament grand.
   1. **&#955;=40**  
-    *Moyenne* = 55ms  
-    *Intervalle de confiance de la moyenne* = [54.87, 55.13] (erreur = 0.13ms)
-    *Médiane* = 51ms  
-    *Intervalle de confiance de la médiane* = [,] (erreur = ms)
+    *Moyenne* = 54ms  
+    *Intervalle de confiance de la moyenne* = [52.92ms, 55.08ms] (erreur = 1.08ms)
+
+    *Médiane* = 50ms  
+    *Intervalle de confiance de la médiane* = [59ms, 67ms]
   2. **&#955;=60**  
       *Moyenne* = 49ms  
-      *Intervalle de confiance de la moyenne* = [48.89, 49.11] (erreur = 0.11ms)
+      *Intervalle de confiance de la moyenne* = [47.87ms, 50.13ms] (erreur = 1.13ms)
+
       *Médiane* = 48ms  
-      *Intervalle de confiance de la médiane* = [,] (erreur = ms)
+      *Intervalle de confiance de la médiane* = [46ms, 56ms]
 
 ##### Exercice 2
 
 1. **TO DO**  
-  Peut-on avoir un intervalle de confiance ?
+  On calcule la moyenne de la distribution de Pareto sur 100, 1000 puis 10^6 tirages et on obtient les résultats suivants :
+  1. 100 tirages : 6.21ms
+  2. 200 tirages : 7.16ms
+  3. 300 tirages : 9.48ms
 2. //
   1. Le système nous semble stable pour un **&#955; strictement supérieur à 24.**  
   ![Image inconnue](./Graphs/24-25-26_40000_pareto.png)

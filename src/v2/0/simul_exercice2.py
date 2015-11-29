@@ -4,24 +4,24 @@
 from main import *
 
 def simul_server(param_lambda, time_out, a, m):
-        
+
     #initialization
     last_id = 0
-        
+
     q = PriorityQueue()
     q.put((10, ('arrival', last_id)))
-        
+
     dico_client = {}
     dico_client[last_id] = 10
-    
+
     liste_temps_execution = []
-        
+
     state = 0
 
     block_time = 0
     rtt_2 = 6
     current_time = 0
-        
+
     axe_x = []
     axe_y = []
 
@@ -31,7 +31,7 @@ def simul_server(param_lambda, time_out, a, m):
         current_time = event[0]
         axe_x.append(current_time)
         axe_y.append(state)
-            
+
         id = event[1][1]
 
         if (event[1][0] == 'arrival'): # Si le client vient d'arriver on l'envoie au serveur
@@ -51,22 +51,22 @@ def simul_server(param_lambda, time_out, a, m):
 
         elif(event[1][0] == 'type2'): # Si la réponse d'une requête de type 1 a été reçueée par le client
             if(block_time > current_time):
-                q.put ((current_time + 1, ('type2', id))) # On envoie une requête de type 1 au serveur
+                q.put ((current_time + 1, ('type2', id))) # On envoie une requête de type 2 au serveur
             else:
                 t = current_time + pareto(a, m)
-                q.put ((t + rtt_2, ('departure', id))) # On traite la requête de type 1
+                q.put ((t + rtt_2, ('departure', id))) # On traite la requête de type 2
                 block_time = t
 
         elif(event[1][0] == 'departure'):
             state -= 1
             liste_temps_execution.append(current_time - dico_client[id])
-            
+
     return (axe_x, axe_y, liste_temps_execution)
-    
+
 def do(param_lambda1, param_lambda2, param_lambda3, time_out, a, m):
 
     list_param_lambda = [param_lambda1, param_lambda2, param_lambda3]
-    
+
     simul = []
     simul.append(simul_server(param_lambda1, time_out, a, m))
     if param_lambda2 != -1:
@@ -77,7 +77,7 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, a, m):
         simul.append(simul_server(param_lambda3, time_out, a, m))
     else:
         simul.append([[], [], {}])
-    
+
     for i in range(0, len(simul)):
         simul_var = simul[i]
         if len(simul_var[0]) != 0:
@@ -90,7 +90,7 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, a, m):
             intervalle_de_confiance_var = intervalle_de_confiance(ecart_type_var, len(simul_var[2]))
             print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var) + "."
             print("\t L'intervalle de confiance de la moyenne vaut {0:.2f}.".format(intervalle_de_confiance_var))
-    
+
     plt.plot(simul[0][0], simul[0][1], 'r--', label="$\lambda = %d$" % param_lambda1)
     if(len(simul[1][0]) != 0):
         plt.plot(simul[1][0], simul[1][1], 'bs', label="$\lambda = %d$" % param_lambda2)

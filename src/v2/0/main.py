@@ -9,7 +9,7 @@ from random import *
 
 def uniforme(uMin, uMax): # Loi uniforme
     return randint(uMin, uMax)
-    
+
 def exponentiel(p): # Loi exponentielle de paramètre p
     return int(expovariate(p))
 
@@ -34,11 +34,15 @@ def intervalle_de_confiance(ecart_type, taille):
     return ecart_type / sqrt(taille)
 
 if __name__ == "__main__":
-        
+
     import simul_exercice1 as s1
     import moyenne_pareto as mp
     import simul_exercice2 as s2
-    
-    
-#    s1.do(40, 60, -1, 1000000, 0.1)
-    s2.do(20, 30, -1, 40000, 1.25, 2)
+
+    # initialisation des générateurs de nombres aléatoires
+    seed(1)
+    np.random.seed(1)
+
+#    s1.do(40, 60, -1, 10000, 0.1)
+    mp.do(1.25, 2)
+#    s2.do(20, 30, -1, 40000, 1.25, 2)
