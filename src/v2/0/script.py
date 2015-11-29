@@ -5,10 +5,16 @@ import sys
 import simul_exercice1 as s1
 import moyenne_pareto as mp
 import simul_exercice2 as s2
+from random import *
+import numpy as np
 
 if __name__ == "__main__":
+
+    seed(1)
+    np.random.seed(1)
+
     if len(sys.argv) != 0:
-        
+
         num_graph = int(sys.argv[1])
         if num_graph == 1: # Exercice 1, 3.1
             s1.do(24, 25, 26, 80000, 0.1, 1)
@@ -25,4 +31,3 @@ if __name__ == "__main__":
             print "out"
         else:
             print "out"
-            
