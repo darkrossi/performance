@@ -88,19 +88,17 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, a, m, nb_sigma_pre
             average_time = temp_sum_time / len(simul_var[2])
             ecart_type_var = ecart_type(simul_var[2], average_time)
 
-            n = len(simul_var[2])
-            j = int((n/2) - sqrt(n)/2)
-            k = int((n/2) + sqrt(n)/2)
-            # il faut ordonner la liste
-            listeTriee = sorted(simul_var[2])
-            xj = listeTriee[j]
-            xk = listeTriee[k]
+            intervalle_de_confiance_mediane_var = intervalle_de_confiance_mediane(nb_sigma_precision, simul_var[2])
+            xj_mediane = intervalle_de_confiance_mediane_var[0]
+            xk_mediane = intervalle_de_confiance_mediane_var[1]
+            intervalle_de_confiance_moyenne_var = intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type_var, len(simul_var[2]), average_time)
+            xj_moyenne = intervalle_de_confiance_moyenne_var[0]
+            xk_moyenne = intervalle_de_confiance_moyenne_var[1]
 
-            intervalle_de_confiance_var = intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type_var, len(simul_var[2]))
-            print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var) + "."
-            print("\t L'intervalle de confiance de la moyenne vaut {0:.2f}.".format(intervalle_de_confiance_var))
-            print("\t L'intervalle de confiance de la mediane vaut [" + str(xj) + ", " + str(xk) + "].")
-
+            print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de {0:.1f}ms et la médiane est {1:.1f}.".format(average_time, mediane_var)
+            print("\t L'intervalle de confiance de la moyenne vaut [{0:.1f}, {1:.1f}].".format(xj_moyenne, xk_moyenne))
+            print("\t L'intervalle de confiance de la mediane vaut [{0:.1f}, {1:.1f}].".format(xj_mediane, xk_mediane))
+            
     plt.plot(simul[0][0], simul[0][1], 'r--', label="$\lambda = %d$" % param_lambda1)
     if(len(simul[1][0]) != 0):
         plt.plot(simul[1][0], simul[1][1], 'bs', label="$\lambda = %d$" % param_lambda2)

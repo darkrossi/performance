@@ -50,6 +50,7 @@ Nous donnons à notre simulateur un time_out (en ms) qui correspond à la limite
     On voit que pour &#955;=20 le nombre de clients présents à un instant t ne cesse d'augmenter avec le temps alors que celui pour &#955;=30 reste stable (régime stationnaire).
 4. On sait que pour &#955;=20 le système est instable, il n'y a pas de régime stationnaire. On ne pourra donc pas calculer la moyenne et la médiane du temps que met le serveur à répondre à une requête.  
   Pour &#955;=40 et &#955;=60 cela est possible car le système est stable.  
+  Nous nous basons sur des intervalles de confiance de niveau 68%.  
   L'intervalle de confiance de la moyenne est calculé à l'aide de la formule suivant : *erreur = &#963;/sqrt(n)* avec n le nombre d'échantillons de la simulation.  
   L'intervalle de confiance pour la médiane est donné par [Xj, Xk]  avec k>j qui vérifient *j = n/2 - sqrt(n)/2* et *k = n/2 + sqrt(n)/2* pour n suffisament grand.
   1. **&#955;=40**  
@@ -67,12 +68,12 @@ Nous donnons à notre simulateur un time_out (en ms) qui correspond à la limite
 
 ##### Exercice 2
 
-1. **TO DO**  
+1. *Moyenne de Pareto*  
   On calcule la moyenne de la distribution de Pareto sur 100, 1000 puis 10^6 tirages et on obtient les résultats suivants :
   1. 100 tirages : 6.21ms
   2. 1000 tirages : 7.16ms
   3. 10^6 tirages : 9.48ms
-2. //
+2. *Etude Pareto*
   1. Le système nous semble stable pour un **&#955; strictement supérieur à 24.** L'allure des courbes est différente de l'exercice 1, on observe notamment des pics d'amplitude plus importante qu'avec la distribution exponentielle.
   ![Image inconnue](./Graphs/24-25-26_40000_pareto.png)
   2. On choisit &#955;=20 et &#955;=30.  
@@ -91,7 +92,7 @@ L'intervalle de confiance pour la médiane est donné par [Xj, Xk]  avec k>j qui
   2. **&#955;=60**  
       *Moyenne* = 52ms  
       *Intervalle de confiance de la moyenne* = [51.03ms, 52.97ms] (erreur = 0.97ms)
-      
+
       *Médiane* = 46ms  
       *Intervalle de confiance de la médiane* = [45.5ms, 46.5ms]
 

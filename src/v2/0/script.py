@@ -3,7 +3,6 @@
 
 import sys
 import simul_exercice1 as s1
-import moyenne_pareto as mp
 import simul_exercice2 as s2
 from random import *
 import numpy as np

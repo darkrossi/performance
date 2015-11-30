@@ -35,11 +35,19 @@ def mediane(list):
     new_list = sorted(list)
     return new_list[int(len(new_list) / 2)]
 
-def intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type, taille):
-    return dico_sigma[nb_sigma_precision][0] * ecart_type / sqrt(taille)
+def intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type, taille, moyenne):
+    a = dico_sigma[nb_sigma_precision][0] * ecart_type / sqrt(taille)
+    return (moyenne - a, moyenne +a)
 
-def intervalle_de_confiance_mediane(nb_sigma_precision, taille):
-    return dico_sigma[nb_sigma_precision][0] * sqrt(taille) / 2
+def intervalle_de_confiance_mediane(nb_sigma_precision, list):
+    n = len(list)
+    j = int((n / 2) - dico_sigma[nb_sigma_precision][0] * sqrt(n) / 2)
+    k = int((n / 2) + dico_sigma[nb_sigma_precision][0] * sqrt(n) / 2)
+    # il faut ordonner la liste
+    listeTriee = sorted(list)
+    xj = listeTriee[j]
+    xk = listeTriee[k]
+    return (xj, xk)
 
 if __name__ == "__main__":
 
@@ -52,6 +60,6 @@ if __name__ == "__main__":
     seed(1)
     np.random.seed(1)
 
-    s1.do(40, 60, -1, 100000, 0.1, 1)
+#    s1.do(40, 60, -1, 100000, 0.1, 1)
 #    mp.do(1.25, 2)
-#    s2.do(40, 60, -1, 100000, 1.25, 2, 1)
+    s2.do(30, 35, -1, 100000, 1.25, 2, 1)
