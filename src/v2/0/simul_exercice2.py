@@ -87,9 +87,19 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, a, m, nb_sigma_pre
             mediane_var = mediane(simul_var[2])
             average_time = temp_sum_time / len(simul_var[2])
             ecart_type_var = ecart_type(simul_var[2], average_time)
+
+            n = len(simul_var[2])
+            j = int((n/2) - sqrt(n)/2)
+            k = int((n/2) + sqrt(n)/2)
+            # il faut ordonner la liste
+            listeTriee = sorted(simul_var[2])
+            xj = listeTriee[j]
+            xk = listeTriee[k]
+
             intervalle_de_confiance_var = intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type_var, len(simul_var[2]))
             print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var) + "."
             print("\t L'intervalle de confiance de la moyenne vaut {0:.2f}.".format(intervalle_de_confiance_var))
+            print("\t L'intervalle de confiance de la mediane vaut [" + str(xj) + ", " + str(xk) + "].")
 
     plt.plot(simul[0][0], simul[0][1], 'r--', label="$\lambda = %d$" % param_lambda1)
     if(len(simul[1][0]) != 0):

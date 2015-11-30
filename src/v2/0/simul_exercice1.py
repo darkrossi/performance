@@ -91,8 +91,10 @@ def do(param_lambda1, param_lambda2, param_lambda3, time_out, param_expon, nb_si
             n = len(simul_var[2])
             j = int((n/2) - sqrt(n)/2)
             k = int((n/2) + sqrt(n)/2)
-            xj = simul_var[2][j]
-            xk = simul_var[2][k]
+            # il faut ordonner la liste
+            listeTriee = sorted(simul_var[2])
+            xj = listeTriee[j]
+            xk = listeTriee[k]
             intervalle_de_confiance_var = intervalle_de_confiance_moyenne(nb_sigma_precision, ecart_type_var, len(simul_var[2]))
 
             print "Le temps moyen pour lambda = " + str(list_param_lambda[i]) + " est de " + str(average_time) + "ms et la médiane est " + str(mediane_var) + "."

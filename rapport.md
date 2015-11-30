@@ -56,14 +56,14 @@ Nous donnons à notre simulateur un time_out (en ms) qui correspond à la limite
     *Moyenne* = 54ms  
     *Intervalle de confiance de la moyenne* = [52.92ms, 55.08ms] (erreur = 1.08ms)
 
-    *Médiane* = 50ms  
-    *Intervalle de confiance de la médiane* = [59ms, 67ms]
+    *Médiane* = 52ms  
+    *Intervalle de confiance de la médiane* = [52ms, 53ms]
   2. **&#955;=60**  
       *Moyenne* = 49ms  
       *Intervalle de confiance de la moyenne* = [47.87ms, 50.13ms] (erreur = 1.13ms)
 
-      *Médiane* = 48ms  
-      *Intervalle de confiance de la médiane* = [46ms, 56ms]
+      *Médiane* = 49ms  
+      *Intervalle de confiance de la médiane* = [48ms, 49ms]
 
 ##### Exercice 2
 
@@ -77,21 +77,21 @@ Nous donnons à notre simulateur un time_out (en ms) qui correspond à la limite
   ![Image inconnue](./Graphs/24-25-26_40000_pareto.png)
   2. On choisit &#955;=20 et &#955;=30.  
     ![Image inconnue](./Graphs/20-30_40000_pareto.png)  
-    On voit que pour &#955;=20 le nombre de clients présents à un instant t ne cesse d'augmenter avec le temps alors que celui pour &#955;=30 reste stable. **TO COMPLETE**
+    On voit que pour &#955;=20 le nombre de clients présents à un instant t ne cesse d'augmenter avec le temps alors que celui pour &#955;=30 reste stable (régime stationnaire).
 3. On sait que pour &#955;=20 le système est instable, il n'y a pas de régime stationnaire. On ne pourra donc pas calculer la moyenne et la médiane du temps que met le serveur à répondre à une requête.  
 Pour &#955;=40 et &#955;=60 cela est possible car le système est stable.  
 L'intervalle de confiance de la moyenne est calculé à l'aide de la formule suivant : *erreur = &#963;/sqrt(n)* avec n le nombre d'échantillons de la simulation.  
-L'intervalle de confiance pour la médiane ... **TO DO**  
+L'intervalle de confiance pour la médiane est donné par [Xj, Xk]  avec k>j qui vérifient *j = n/2 - sqrt(n)/2* et *k = n/2 + sqrt(n)/2* pour n suffisament grand.
   1. **&#955;=40**  
-    *Moyenne* = ms  
-    *Intervalle de confiance de la moyenne* = [, ] (erreur = ms)
-    *Médiane* = ms  
-    *Intervalle de confiance de la médiane* = [,] (erreur = ms)
+    *Moyenne* = 57ms  
+    *Intervalle de confiance de la moyenne* = [56.04ms, 57.96ms] (erreur = 0.96ms)
+    *Médiane* = 47ms  
+    *Intervalle de confiance de la médiane* = [46.7ms, 47.6ms]
   2. **&#955;=60**  
-      *Moyenne* = ms  
-      *Intervalle de confiance de la moyenne* = [, ] (erreur = ms)
-      *Médiane* = ms  
-      *Intervalle de confiance de la médiane* = [,] (erreur = ms)
+      *Moyenne* = 56ms  
+      *Intervalle de confiance de la moyenne* = [54.43ms, 57.57ms] (erreur = 1.57ms)
+      *Médiane* = 45ms  
+      *Intervalle de confiance de la médiane* = [45.0ms, 46.0ms]
 
 ```
 Le temps moyen pour lambda = 20 est de 14054.4984128ms et la médiane est 14959.7977102.
